@@ -49,13 +49,20 @@ curl -s \
     -d '{"type":"app-id"}' \
     http://127.0.0.1:8200/v1/sys/auth/app-id
 
+curl -s \
+    -X PUT \
+    -H "X-Vault-Token:$VAULT_TOKEN" \
+    -d '{"rules":"path \"secret/*\" { policy = \"write\" }"}' \
+    http://127.0.0.1:8200/v1/sys/policy/devtest
+  
+
 APPID=$(uuidgen)
 USERID=$(uuidgen)
 
 curl -s \
     -X POST \
     -H "X-Vault-Token:$VAULT_TOKEN" \
-    -d '{"value":"root", "display_name":"devapp"}' \
+    -d '{"value":"devtest", "display_name":"devapp"}' \
     http://localhost:8200/v1/auth/app-id/map/app-id/${APPID}
 
 curl -s \
