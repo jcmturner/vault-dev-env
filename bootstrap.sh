@@ -1,5 +1,7 @@
 #!/bin/bash
 
+VAULT_VER="0.7.3"
+
 #yum upgrade -y
 
 rm /etc/localtime
@@ -19,11 +21,11 @@ yum install -y \
   wget \
   curl
 
-wget -qO vault.zip https://releases.hashicorp.com/vault/0.5.2/vault_0.5.2_linux_amd64.zip
+wget -qO vault.zip https://releases.hashicorp.com/vault/${VAULT_VER}/vault_${VAULT_VER}_linux_amd64.zip
 unzip vault.zip
 mkdir -p /home/vagrant/vault-data
 
-mv /home/vagrant/sync/vault.service /etc/systemd/system/vault.service
+mv /vagrant/vault.service /etc/systemd/system/vault.service
 systemctl enable vault
 systemctl start vault
 sleep 5
